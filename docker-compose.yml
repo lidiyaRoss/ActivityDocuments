@@ -1,0 +1,33 @@
+version: '3.3'
+services:
+  currencyconvert:
+    image: lidgeorg/currencyconvert:1.0.3
+ 
+    ports:
+      - "8082:8082"
+    networks:
+      - bootcamp-network
+    depends_on:
+      - eureka-server
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://eureka-server:8761/eureka
+  currencymgmt:
+    image: lidgeorg/currencymgmt:1.0.3
+  
+    ports:
+      - "8084:8084"
+    networks:
+      - bootcamp-network
+    depends_on:
+      - eureka-server
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://eureka-server:8761/eureka
+  eureka-server:
+    image: lidgeorg/eureka-server:1.0.3
+  
+    ports:
+      - "8761:8761"
+    networks:
+      - bootcamp-network
+networks:
+  bootcamp-network:
